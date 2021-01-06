@@ -25,6 +25,7 @@ export default new Vuex.Store({
     },
     actions: {
         async GET_TIPO_CAMBIO({ commit }) {
+            console.log(process.env);
             const { data } = await axios.post("https://api.migo.pe/api/v1/exchange/latest", {
                 token: process.env.KEY_TCAMBIO,
             });

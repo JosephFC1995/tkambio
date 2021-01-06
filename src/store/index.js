@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+require("dotenv").config();
 
 Vue.use(Vuex);
 const axios = require("axios");
@@ -25,9 +26,8 @@ export default new Vuex.Store({
     },
     actions: {
         async GET_TIPO_CAMBIO({ commit }) {
-            console.log(process.env);
             const { data } = await axios.post("https://api.migo.pe/api/v1/exchange/latest", {
-                token: process.env.KEY_TCAMBIO,
+                token: process.env.VUE_APP_KEY_TCAMBIO,
             });
             commit("SET_T_CAMBIO", data);
         },

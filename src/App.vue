@@ -28,6 +28,14 @@ export default {
 	metaInfo: {
 		title: "Tkambio",
 		titleTemplate: "%s | Cambia soles y dólares en minutos ⌛",
+		meta: [
+			{
+				vmid: "description",
+				name: "description",
+				content:
+					"Somos una Casa de Cambio en línea incrita en la SBS | Cambia soles y dólares con el mejor tipo de cambio en Perú | +30 mil operaciones realizadas",
+			},
+		],
 	},
 	components: {
 		NavBar,

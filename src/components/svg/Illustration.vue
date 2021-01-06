@@ -1,5 +1,5 @@
 <template>
-	<div class="illustration" id="illustration">
+	<div class="illustration ov-loading" id="illustration">
 		<svg width="359" height="375" viewBox="0 0 359 375" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path
 				d="M198.275 160.264C183.526 169.907 170.177 177.407 152.681 173.75C136.726 170.415 111.7 165.183 111.7 165.183L94.253 248.549C83.4216 300.303 124.946 358.146 153.335 375C153.335 375 153.337 375.001 153.339 374.999L198.278 160.27C198.277 160.268 198.275 160.267 198.275 160.264Z"

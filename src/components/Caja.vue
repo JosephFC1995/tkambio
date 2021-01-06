@@ -35,7 +35,7 @@
 						</div>
 					</div>
 					<div class="change custom-space d-flex align-items-center justify-content-center">
-						<div class="btn-change" @click="changeDirectionCambio">
+						<div class="btn-change" @click="actionDirectionCambio">
 							<ButtonChange />
 						</div>
 					</div>
@@ -57,13 +57,12 @@
 		<div class="caja-button">
 			<div class="type-change">
 				<span class="title"> Tipo de Cambio: </span>
-				<span
-					><b>Compra: {{ tcambio }}</b> | Venta: 3.426
+				<span class="ml-1 venta-compra">
+					<span :class="[!direction ? 'active' : '']">Compra: {{ tcambioCompra }}</span> |
+					<span :class="[direction ? 'active' : '']">Venta: {{ tcambioVenta }}</span>
 				</span>
 			</div>
-			<div class="set-cupp text-underline">
-				¿Tienes un código promocional? Ingrésalo acá
-			</div>
+			<div class="set-cupp text-underline" style="cursor:pointer">¿Tienes un código promocional? Ingrésalo acá <Arrow /></div>
 		</div>
 		<div class="btn-floating">
 			<a href="#" class="btn-primary">
@@ -79,6 +78,7 @@
 import FlagPeru from "../components/svg/FlagPeru";
 import FlagUSA from "../components/svg/FlagUsa";
 import ButtonChange from "../components/svg/ButtonChange";
+import Arrow from "../components/svg/Arrow";
 import { VMoney } from "v-money";
 import { mapActions, mapGetters } from "vuex";
 
@@ -87,6 +87,7 @@ export default {
 		FlagPeru,
 		FlagUSA,
 		ButtonChange,
+		Arrow,
 	},
 	data() {
 		return {
@@ -107,25 +108,31 @@ export default {
 			var amount = this.priceInit.replace(",", "");
 			var newMount = 0;
 			if (this.direction) {
-				newMount = amount / this.tcambio;
+				newMount = amount / this.tcambioVenta;
 			} else {
-				newMount = amount * this.tcambio;
+				newMount = amount * this.tcambioCompra;
 			}
 			this.priceEnd = newMount.toFixed(2);
-			console.log(this.priceInit.replace(",", ""));
-			console.log(this.priceInit);
 		},
 		convertRightToLeft() {
 			var amount = this.priceEnd.replace(",", "");
 			var newMount = 0;
 			if (this.direction) {
-				newMount = amount * this.tcambio;
+				newMount = amount * this.tcambioCompra;
 			} else {
-				newMount = amount / this.tcambio;
+				newMount = amount / this.tcambioVenta;
 			}
 			this.priceInit = newMount.toFixed(2);
-			console.log(this.priceInit.replace(",", ""));
-			console.log(this.priceInit);
+		},
+		actionDirectionCambio() {
+			// var tl = this.$gsap.timeline({ paused: true });
+			// tl.to(".btn-change", {
+			// 	rotation: "360deg",
+			// 	ease: "power4.inOut",
+			// });
+			// tl.restart();
+			this.animateRotate.restart();
+			this.changeDirectionCambio();
 		},
 		...mapActions({
 			changeDirectionCambio: "TOGGLE_DIRECTION_CAMBIO",
@@ -139,9 +146,17 @@ export default {
 	},
 	computed: {
 		...mapGetters({
-			tcambio: "getTCambio",
+			tcambioCompra: "getTCambioCompra",
+			tcambioVenta: "getTCambioVenta",
 			direction: "getDirectionCambio",
 		}),
+		animateRotate() {
+			var tl = this.$gsap.timeline({ paused: true });
+			return tl.to(".btn-change", {
+				rotation: "360deg",
+				ease: "power4.inOut",
+			});
+		},
 	},
 	directives: { money: VMoney },
 };
@@ -319,6 +334,12 @@ export default {
 				@media (max-width: 768px) {
 					flex: 0 0 100%;
 					margin-bottom: 7px;
+				}
+			}
+			.venta-compra {
+				.active {
+					font-weight: 600;
+					text-decoration: underline;
 				}
 			}
 		}

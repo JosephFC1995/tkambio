@@ -6,38 +6,49 @@ const axios = require("axios");
 
 export default new Vuex.Store({
     state: {
-        tcambio: 0,
+        tcambioCompra: 0,
+        tcambioVenta: 0,
         penTOdollar: true,
+        activeMenu: false,
     },
     mutations: {
         SET_T_CAMBIO(state, payload) {
-            state.tcambio = payload;
+            state.tcambioCompra = payload.precio_compra;
+            state.tcambioVenta = payload.precio_venta;
         },
         TOGGLE_DIRECTION_CAMBIO(state, payload) {
             state.penTOdollar = payload;
         },
+        TOGGLE_MENU(state, payload) {
+            state.activeMenu = payload;
+        },
     },
     actions: {
         async GET_TIPO_CAMBIO({ commit }) {
-            const { data } = await axios.get("http://api.currencylayer.com/live", {
-                params: {
-                    access_key: process.env.KEY_TCAMBIO,
-                    currencies: "PEN",
-                    format: 1,
-                },
+            const { data } = await axios.post("https://api.migo.pe/api/v1/exchange/latest", {
+                token: process.env.KEY_TCAMBIO,
             });
-            commit("SET_T_CAMBIO", data.quotes.USDPEN);
+            commit("SET_T_CAMBIO", data);
         },
         TOGGLE_DIRECTION_CAMBIO({ commit, state }) {
             commit("TOGGLE_DIRECTION_CAMBIO", !state.penTOdollar);
         },
+        TOGGLE_MENU({ commit, state }, action) {
+            commit("TOGGLE_MENU", action);
+        },
     },
     getters: {
-        getTCambio: (state) => {
-            return state.tcambio.toFixed(3);
+        getTCambioCompra: (state) => {
+            return state.tcambioCompra;
+        },
+        getTCambioVenta: (state) => {
+            return state.tcambioVenta;
         },
         getDirectionCambio: (state) => {
             return state.penTOdollar;
+        },
+        getActiveMenu: (state) => {
+            return state.activeMenu;
         },
     },
     modules: {},

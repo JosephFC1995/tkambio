@@ -1,5 +1,5 @@
 <template>
-	<div class="home content-viewport">
+	<div class="home content-viewport  ov-loading">
 		<div class="content-home">
 			<div class="row">
 				<div class="col-12 col-md-5 col-lg-4">
@@ -52,6 +52,83 @@ export default {
 	},
 	mounted() {
 		this.getTipoCambio();
+		var tl = this.$gsap.timeline({ paused: true, delay: 1 });
+		tl.fromTo(
+			"#loading-logo",
+			{
+				autoAlpha: 1,
+			},
+			{
+				autoAlpha: 0,
+				visibility: "hidden",
+				ease: "power4.inOut",
+			}
+		)
+			.fromTo(
+				"#waves",
+				{
+					scaleX: 4,
+					scaleY: 4,
+				},
+				{
+					scaleX: 1,
+					scaleY: 1,
+					duration: 1.1,
+					ease: "power4.inOut",
+				}
+			)
+
+			.fromTo(
+				".container-navbar",
+				{
+					autoAlpha: 0,
+					y: -40,
+				},
+				{
+					autoAlpha: 1,
+					y: 0,
+					duration: 1.1,
+					ease: "power4.inOut",
+				}
+			)
+			.to(".content-viewport", {
+				autoAlpha: 1,
+				duration: 1.1,
+				ease: "power4.inOut",
+			})
+			.fromTo(
+				".footer",
+				{
+					autoAlpha: 0,
+					yPercent: 40,
+					ease: "power4.inOut",
+				},
+				{
+					autoAlpha: 1,
+					duration: 1.1,
+					yPercent: 0,
+					ease: "power4.inOut",
+				}
+			)
+			.fromTo(
+				"#illustration",
+				{
+					autoAlpha: 0,
+					y: 40,
+					x: 40,
+				},
+				{
+					autoAlpha: 1,
+					duration: 1.1,
+					y: 0,
+					x: 0,
+					ease: "power4.inOut",
+				}
+			)
+			.to(".screen-loading", {
+				className: "-=app-content",
+			});
+		tl.play();
 	},
 };
 </script>

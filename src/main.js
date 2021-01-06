@@ -17,6 +17,11 @@ Vue.use(IconsPlugin);
 import VueMeta from "vue-meta";
 Vue.use(VueMeta);
 
+//Gsap
+import { gsap } from "gsap";
+
+Object.defineProperty(Vue.prototype, "$gsap", { value: gsap });
+
 new Vue({
     router,
     store,

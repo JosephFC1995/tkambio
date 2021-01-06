@@ -1,0 +1,17 @@
+$grid-breakpoints: ( xs: 0, sm: 480px, md: 768px, lg: 993px, xl: 1300px);
+// Theme color default definitions
+$primary: #FFBD12 !default;
+$secondary:#C4C4C4 !default;
+$success: #0DA0EF !default;
+$danger:#CB3F52 !default;
+@import 'node_modules/bootstrap/scss/bootstrap.scss';
+@import 'node_modules/bootstrap-vue/src/index.scss';
+body {
+    font-family: Argentum Sans;
+}
+
+a {
+    &:hover {
+        text-decoration: none !important;
+    }
+}

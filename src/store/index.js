@@ -33,7 +33,7 @@ export default new Vuex.Store({
         TOGGLE_DIRECTION_CAMBIO({ commit, state }) {
             commit("TOGGLE_DIRECTION_CAMBIO", !state.penTOdollar);
         },
-        TOGGLE_MENU({ commit, state }, action) {
+        TOGGLE_MENU({ commit }, action) {
             commit("TOGGLE_MENU", action);
         },
     },

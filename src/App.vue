@@ -88,12 +88,12 @@ export default {
 		}
 	}
 }
-.container {
-	&-min {
-		// overflow: hidden;
-		// min-height: 100vh;
-	}
-}
+// .container {
+// 	&-min {
+// 		// overflow: hidden;
+// 		// min-height: 100vh;
+// 	}
+// }
 .content {
 	&-viewport {
 		min-height: 65vh;
